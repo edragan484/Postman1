@@ -1,0 +1,535 @@
+{
+	"info": {
+		"_postman_id": "aae1da98-12a9-4584-a64b-c7742a327b50",
+		"name": "UDEMY_API_TESTING",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://swapi.dev/api/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9df5ca6-0706-4abe-8887-3a971577bb15",
+						"exec": [
+							"//1. Correct response format JSON\r",
+							"pm.test (\"Correct response format JSON\", function(){\r",
+							"    pm.response.to.have.jsonBody()\r",
+							"})\r",
+							"\r",
+							"//2. We have all the declared fields in the response\r",
+							"pm.test(\"Check that we have all the declared fields in the response\", function(){\r",
+							"    const jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData).to.have.property(\"people\");\r",
+							"    pm.expect(jsonData).to.have.property(\"planets\");\r",
+							"    pm.expect(jsonData).to.have.property(\"films\");\r",
+							"    pm.expect(jsonData).to.have.property(\"species\");\r",
+							"    pm.expect(jsonData).to.have.property(\"vehicles\");\r",
+							"    pm.expect(jsonData).to.have.property(\"starships\");\r",
+							"});\r",
+							"\r",
+							"//3. Field value isn't NULL\r",
+							"pm.test(\"Check if field value isn't NULL\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.people).not.equal(null);\r",
+							"    pm.expect(jsonData.planets).not.equal(null);\r",
+							"    pm.expect(jsonData.films).not.equal(null);\r",
+							"    pm.expect(jsonData.species).not.equal(null);\r",
+							"    pm.expect(jsonData.vehicles).not.equal(null);\r",
+							"    pm.expect(jsonData.starships).not.equal(null);\r",
+							"})\r",
+							"\r",
+							"//4. Check if value isn't empty\r",
+							"pm.test(\"Check if value isn't empty\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.people).not.equal(\"\");\r",
+							"    pm.expect(jsonData.planets).not.equal(\"\");\r",
+							"    pm.expect(jsonData.films).not.equal(\"\");\r",
+							"    pm.expect(jsonData.species).not.equal(\"\");\r",
+							"    pm.expect(jsonData.vehicles).not.equal(\"\");\r",
+							"    pm.expect(jsonData.starships).not.equal(\"\");\r",
+							"}) \r",
+							"\r",
+							"//5. Check if field corresponds to a specific value\r",
+							"pm.test(\"Check iffield corresponds to a specific value\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.people).to.equal(\"http://swapi.dev/api/people/\");\r",
+							"    pm.expect(jsonData.planets).to.equal(\"http://swapi.dev/api/planets/\");\r",
+							"    pm.expect(jsonData.films).to.equal(\"http://swapi.dev/api/films/\");\r",
+							"    pm.expect(jsonData.species).to.equal(\"http://swapi.dev/api/species/\");\r",
+							"    pm.expect(jsonData.vehicles).to.equal(\"http://swapi.dev/api/vehicles/\");\r",
+							"    pm.expect(jsonData.starships).to.equal(\"http://swapi.dev/api/starships/\");\r",
+							"    })\r",
+							"\r",
+							"    //6. Status code is 200\r",
+							"    pm.test(\"Status code is 200\", function() {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"//7. Status message is ok\r",
+							"pm.test(\"Status message is ok\", function(){\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"})\r",
+							"\r",
+							"//8. Response time is less then 1000ms\r",
+							"pm.test(\"Response time is less then 1000ms\", function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"})\r",
+							"\r",
+							"//9. There is a specific header in the response\r",
+							"pm.test(\"There is a specific header in the response\", function(){\r",
+							"    pm.response.to.have.header(\"Content-Type\")\r",
+							"});\r",
+							"\r",
+							"//10. The response hes a specific header with a specific value\r",
+							"pm.test(\"The response hes a specific header with a specific value\", function(){\r",
+							"    pm.response.to.be.header(\"Content-Type\", \"application/json\")\r",
+							"});\r",
+							"\r",
+							"//11. Cookie exists\r",
+							"pm.test(\"Cookie exists\", function(){\r",
+							"    pm.cookies.has(\"\")\r",
+							"})\r",
+							"\r",
+							"//12. Cookie has value\r",
+							"pm.test(\"Cookie has value\", function(){\r",
+							"    try{\r",
+							"        var MY_COOKIE = pm.cookies.get(\"\");\r",
+							"        console.log(MY_COOKIE);\r",
+							"    } catch(e){\r",
+							"        console.log(\"SOME PROBLEM WITH COOKIE ->\" + e)\r",
+							"    }\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://swapi.dev/api/",
+					"protocol": "https",
+					"host": [
+						"swapi",
+						"dev"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://swapi.dev/api/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9ef0592-5ad6-4fb1-b398-8d516847cf69",
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"\r",
+							"var schema = {\r",
+							"    //specify the type of object\r",
+							"    \"type\": \"object\",\r",
+							"    //specify requires properties\r",
+							"    \"required\": [\"people\", \"planets\", \"films\", \"species\", \"vehicles\", \"starships\"],\r",
+							"    //describe the properties\r",
+							"    \"properties\": {\r",
+							"        \"people\": {\"type\": \"string\"},\r",
+							"        \"planets\": {\"type\": \"string\"},\r",
+							"        \"films\": {\"type\": \"string\"},\r",
+							"        \"species\": {\"type\": \"string\"},\r",
+							"        \"vehicles\": {\"type\": \"string\"},\r",
+							"        \"starships\": {\"type\": \"string\"},\r",
+							"    }\r",
+							"\r",
+							"};\r",
+							"\r",
+							"pm.test ('Body is correct', function(){\r",
+							"    pm.expect(tv4.validate(data, schema)).to.be.true;\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://swapi.dev/api/",
+					"protocol": "https",
+					"host": [
+						"swapi",
+						"dev"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://swapi.dev/api/people/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "71d1f815-94f2-416e-9d72-606f8b5dba40",
+						"exec": [
+							"var data = JSON. parse(responseBody);\r",
+							"\r",
+							"var schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\": [\"name\", \"homeworld\", \"films\", \"species\", \"vehicles\", \"starships\"],\r",
+							"    \"property\": {\r",
+							"        \"name\": {\"type\": \"string\"},\r",
+							"        \"homeworld\": {\"type\": \"string\"},\r",
+							"        \"films\": {\r",
+							"            \"type\": \"array\", \r",
+							"            \"items\": {\"type\": \"string\"}\r",
+							"        },\r",
+							"        \"spacies\": {\r",
+							"            \"type\": \"array\",\r",
+							"            \"items\": {\"type\": \"string\"}\r",
+							"        },\r",
+							"        \"vehicles\": {\r",
+							"            \"type\": \"array\",\r",
+							"            \"items\": {\"type\": \"string\"}\r",
+							"        },\r",
+							"        \"starships\": {\r",
+							"            \"type\": \"array\",\r",
+							"            \"items\": {\"type\": \"string\"}\r",
+							"        },\r",
+							"    }\r",
+							"};\r",
+							"pm.test('Body is correct', function(){\r",
+							"    pm.expect(tv4.validate(data, schema)).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://swapi.dev/api/people/1",
+					"protocol": "https",
+					"host": [
+						"swapi",
+						"dev"
+					],
+					"path": [
+						"api",
+						"people",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://stackoverflow.com/",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authority",
+						"value": "stackoverflow.com"
+					},
+					{
+						"key": "cache-control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "upgrade-insecure-requests",
+						"value": "1"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
+					},
+					{
+						"key": "accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "cross-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "navigate"
+					},
+					{
+						"key": "sec-fetch-user",
+						"value": "?1"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "document"
+					},
+					{
+						"key": "referer",
+						"value": "https://www.google.com/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "cookie",
+						"value": "prov=695e505c-8687-d603-81a8-9d38996766a8; _ga=GA1.2.317499710.1595274550; _gid=GA1.2.1098396933.1595274550; __qca=P0-1152269888-1595274550134"
+					}
+				],
+				"url": {
+					"raw": "https://stackoverflow.com/",
+					"protocol": "https",
+					"host": [
+						"stackoverflow",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://6b04d2cd-25d2-4093-bd9c-479fa6d9b708.mock.pstmn.io",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"Sergei\"}"
+				},
+				"url": {
+					"raw": "https://6b04d2cd-25d2-4093-bd9c-479fa6d9b708.mock.pstmn.io/action",
+					"protocol": "https",
+					"host": [
+						"6b04d2cd-25d2-4093-bd9c-479fa6d9b708",
+						"mock",
+						"pstmn",
+						"io"
+					],
+					"path": [
+						"action"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "https://6b04d2cd-25d2-4093-bd9c-479fa6d9b708.mock.pstmn.io",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Sergei\"}"
+						},
+						"url": {
+							"raw": "https://6b04d2cd-25d2-4093-bd9c-479fa6d9b708.mock.pstmn.io/action",
+							"protocol": "https",
+							"host": [
+								"6b04d2cd-25d2-4093-bd9c-479fa6d9b708",
+								"mock",
+								"pstmn",
+								"io"
+							],
+							"path": [
+								"action"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 20 Jul 2020 23:44:04 GMT"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"a4-7hO0T/XLq3TuFViTu2ZVQQdIY+A\""
+						},
+						{
+							"key": "Server",
+							"value": "nginx"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "120"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "119"
+						},
+						{
+							"key": "X-RateLimit-Reset",
+							"value": "1595287763"
+						},
+						{
+							"key": "x-srv-span",
+							"value": "v=1;s=7ec28049d4cdc920"
+						},
+						{
+							"key": "x-srv-trace",
+							"value": "v=1;t=21b3b2c11f95ca8a"
+						},
+						{
+							"key": "Content-Length",
+							"value": "72"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": {\n        \"name\": \"Sergei\",\n        \"status\": \"Created\",\n        \"message\": \"success\",\n    }\n}"
+				},
+				{
+					"name": "https://6b04d2cd-25d2-4093-bd9c-479fa6d9b708.mock.pstmn.io",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://6b04d2cd-25d2-4093-bd9c-479fa6d9b708.mock.pstmn.io",
+							"protocol": "https",
+							"host": [
+								"6b04d2cd-25d2-4093-bd9c-479fa6d9b708",
+								"mock",
+								"pstmn",
+								"io"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 20 Jul 2020 23:28:23 GMT"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"a4-7hO0T/XLq3TuFViTu2ZVQQdIY+A\""
+						},
+						{
+							"key": "Server",
+							"value": "nginx"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "120"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "119"
+						},
+						{
+							"key": "X-RateLimit-Reset",
+							"value": "1595287763"
+						},
+						{
+							"key": "x-srv-span",
+							"value": "v=1;s=7ec28049d4cdc920"
+						},
+						{
+							"key": "x-srv-trace",
+							"value": "v=1;t=21b3b2c11f95ca8a"
+						},
+						{
+							"key": "Content-Length",
+							"value": "140"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": {\n        \"name\": \"test\",\n        \"message\": \"success\",\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "https://postb.in/1595274060346-7288006707094",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"test\":\"value\"}"
+				},
+				"url": {
+					"raw": "https://postb.in/1595274060346-7288006707094",
+					"protocol": "https",
+					"host": [
+						"postb",
+						"in"
+					],
+					"path": [
+						"1595274060346-7288006707094"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
